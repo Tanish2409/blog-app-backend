@@ -1,4 +1,15 @@
 {
-  "collection": "@nestjs/schematics",
-  "sourceRoot": "src"
+	"collection": "@nestjs/schematics",
+	"sourceRoot": "src",
+	"compilerOptions": {
+		"plugins": [
+			{
+				"name": "@nestjs/swagger/plugin",
+				"options": {
+					"introspectComments": true,
+					"dotFileNameSuffix": [".schema.ts", ".dto.ts"]
+				}
+			}
+		]
+	}
 }
