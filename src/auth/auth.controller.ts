@@ -15,6 +15,9 @@ import { AuthService } from './auth.service';
 export class AuthResponse {
 	@ApiProperty()
 	access_token: string;
+
+	@ApiProperty()
+	user: ApiUserResponse;
 }
 
 export class ErrorResponse {
