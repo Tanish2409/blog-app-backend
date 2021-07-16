@@ -44,22 +44,13 @@ export class AuthController {
 	})
 	register(
 		@Body()
-		{
-			username,
-			email,
-			name,
-			password,
-			profile,
-			about,
-			profilePic,
-		}: CreateUserDto
+		{ username, email, name, password, about, profilePic }: CreateUserDto
 	): Promise<AuthResponse> {
 		return this.authService.register({
 			username,
 			email,
 			name,
 			password,
-			profile,
 			about,
 			profilePic,
 		});

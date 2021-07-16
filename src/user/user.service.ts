@@ -10,6 +10,14 @@ import { ApiUserResponse, User, UserDocument } from './schemas/user.schema';
 export class UserService {
 	constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
+	sanitize(userModel: UserDocument): ApiUserResponse {
+		const userCopy: UserDocument = JSON.parse(JSON.stringify(userModel));
+		delete userCopy.password;
+		delete userCopy.updatedAt;
+
+		return userCopy;
+	}
+
 	async create(createUserDto: CreateUserDto): Promise<UserDocument> {
 		// find user with the mail id being used to register
 		const userWithEmail = await this.userModel.findOne({

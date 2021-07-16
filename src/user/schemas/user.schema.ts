@@ -64,11 +64,11 @@ export class User {
 	/**
 	 * Profile
 	 */
-	@ApiProperty()
-	@IsNotEmpty()
+	// @ApiProperty()
+	// @IsNotEmpty()
 	@Prop({
 		type: mongoose.Schema.Types.String,
-		required: true,
+		required: false,
 	})
 	profile: string;
 
@@ -138,5 +138,5 @@ export const UserSchema = SchemaFactory.createForClass(User);
 
 export type ApiUserResponse = Omit<
 	Pick<UserDocument, keyof User | '__v' | '_id'>,
-	'password' | 'role' | 'updatedAt'
+	'password' | 'updatedAt'
 >;

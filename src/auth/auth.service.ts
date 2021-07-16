@@ -32,12 +32,7 @@ export class AuthService {
 			const isPassMatch = await argon.verify(user.password, pass);
 
 			if (isPassMatch) {
-				const userCopy: UserDocument = JSON.parse(JSON.stringify(user));
-				delete userCopy.password;
-				delete userCopy.role;
-				delete userCopy.updatedAt;
-
-				return userCopy as ApiUserResponse;
+				return this.userService.sanitize(user);
 			}
 		}
 
@@ -51,7 +46,7 @@ export class AuthService {
 
 		return {
 			access_token: this.jwtService.sign(payload),
-			user,
+			user: this.userService.sanitize(user),
 		};
 	}
 
