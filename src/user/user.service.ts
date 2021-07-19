@@ -60,12 +60,10 @@ export class UserService {
 	}
 
 	async findOne(username: string): Promise<ApiUserResponse> {
-		const user: ApiUserResponse = await this.userModel
-			.findOne({ username })
-			.select('-password -role -updatedAt');
+		const user: UserDocument = await this.userModel.findOne({ username });
 
 		// return `This action returns a #${id} user`;
-		return user;
+		return this.sanitize(user);
 	}
 
 	update(id: number, updateUserDto: UpdateUserDto) {
