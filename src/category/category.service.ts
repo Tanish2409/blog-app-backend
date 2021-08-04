@@ -1,5 +1,5 @@
 import {
-	HttpException,
+	BadRequestException,
 	HttpStatus,
 	Injectable,
 	InternalServerErrorException,
@@ -20,6 +20,15 @@ export class CategoryService {
 		createCategoryDto: CreateCategoryDto
 	): Promise<CategoryDocument> {
 		const slug = slugify(createCategoryDto.name).toLowerCase();
+
+		const category = await this.categoryModel.findOne({ slug });
+
+		if (category) {
+			throw new BadRequestException({
+				status: HttpStatus.BAD_REQUEST,
+				message: 'Category Already Exists',
+			});
+		}
 
 		const newCategory = new this.categoryModel({
 			...createCategoryDto,
